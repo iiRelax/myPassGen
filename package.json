@@ -1,0 +1,38 @@
+{
+  "name": "passgen",
+  "version": "1.0.0",
+  "description": "Générateur de mots de passe sécurisé - Single Page Web App",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --port 3000",
+    "start": "vite --host 0.0.0.0 --port 3000"
+  },
+  "keywords": [
+    "password",
+    "generator",
+    "security",
+    "crypto",
+    "pwa",
+    "javascript"
+  ],
+  "author": "Relax",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^4.5.0"
+  },
+  "dependencies": {
+    "zxcvbn": "^4.4.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

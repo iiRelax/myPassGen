@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PassGen - Générateur de Mots de Passe Sécurisé</title>
+    <meta name="description" content="Générateur de mots de passe sécurisé avec calcul de force et presets personnalisés">
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔐%3C/text%3E%3C/svg%3E">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- zxcvbn pour le calcul de force -->
+    <script src="https://cdn.jsdelivr.net/npm/zxcvbn@4.4.2/dist/zxcvbn.js"></script>
+</head>
+<body>
+    <header>
+        <h1>🔐 PassGen</h1>
+        <p>Générateur de mots de passe sécurisé</p>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Section de génération -->
+            <section class="generator-section" aria-label="Générateur de mot de passe">
+                <div class="presets">
+                    <h2>Presets de sécurité</h2>
+                    <div class="preset-buttons" role="radiogroup" aria-label="Types de mots de passe">
+                        <button class="preset-btn active" data-preset="basique" role="radio" aria-checked="true">
+                            <span class="preset-icon">🔑</span>
+                            <span class="preset-name">Basique</span>
+                        </button>
+                        <button class="preset-btn" data-preset="fort" role="radio" aria-checked="false">
+                            <span class="preset-icon">🛡️</span>
+                            <span class="preset-name">Fort</span>
+                        </button>
+                        <button class="preset-btn" data-preset="pin" role="radio" aria-checked="false">
+                            <span class="preset-icon">🔢</span>
+                            <span class="preset-name">PIN</span>
+                        </button>
+                        <button class="preset-btn" data-preset="phrase" role="radio" aria-checked="false">
+                            <span class="preset-icon">📝</span>
+                            <span class="preset-name">Phrase mémo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Configuration de longueur -->
+                <div class="length-config">
+                    <label for="length-slider">
+                        <span>Longueur du mot de passe :</span>
+                        <span class="length-value" id="length-display">12</span>
+                    </label>
+                    <div class="slider-container">
+                        <input 
+                            type="range" 
+                            id="length-slider" 
+                            min="4" 
+                            max="128" 
+                            value="12"
+                            aria-describedby="entropy-info"
+                        >
+                        <div class="entropy-indicator">
+                            <span class="entropy-label">Entropie :</span>
+                            <span class="entropy-value" id="entropy-display">~78 bits</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Options de caractères -->
+                <div class="character-options" id="character-options">
+                    <h3>Caractères inclus</h3>
+                    <div class="options-grid">
+                        <label class="option-item">
+                            <input type="checkbox" id="lowercase" checked>
+                            <span class="checkmark"></span>
+                            <span>Minuscules (a-z)</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" id="uppercase" checked>
+                            <span class="checkmark"></span>
+                            <span>Majuscules (A-Z)</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" id="numbers" checked>
+                            <span class="checkmark"></span>
+                            <span>Chiffres (0-9)</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" id="symbols">
+                            <span class="checkmark"></span>
+                            <span>Symboles (!@#$%)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Bouton de génération -->
+                <button class="generate-btn" id="generate-btn" aria-describedby="password-output">
+                    <span class="btn-icon">🎲</span>
+                    <span class="btn-text">Générer un mot de passe</span>
+                </button>
+            </section>
+
+            <!-- Section de résultat -->
+            <section class="result-section" aria-label="Résultat du mot de passe généré">
+                <div class="password-output" id="password-output">
+                    <div class="password-container">
+                        <input 
+                            type="text" 
+                            id="password-field" 
+                            readonly 
+                            placeholder="Votre mot de passe apparaîtra ici..."
+                            aria-label="Mot de passe généré"
+                        >
+                        <button 
+                            class="copy-btn" 
+                            id="copy-btn" 
+                            aria-label="Copier le mot de passe"
+                            title="Copier dans le presse-papiers"
+                        >
+                            <span class="copy-icon">📋</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Indicateur de force -->
+                    <div class="strength-indicator" id="strength-indicator">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strength-fill"></div>
+                        </div>
+                        <div class="strength-info">
+                            <span class="strength-label" id="strength-label">Force :</span>
+                            <span class="strength-score" id="strength-score">-</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Historique -->
+            <section class="history-section" aria-label="Historique des mots de passe">
+                <h3>Historique récent</h3>
+                <div class="history-list" id="history-list">
+                    <p class="history-empty">Aucun mot de passe généré récemment</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notification de copie -->
+    <div class="copy-notification" id="copy-notification" role="alert" aria-live="polite">
+        <span class="notification-icon">✅</span>
+        <span class="notification-text">Mot de passe copié !</span>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/PasswordGenerator.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
