@@ -1,6 +1,6 @@
 # 🔐 PassGen - Générateur de Mots de Passe Sécurisé
 
-Une Single Page Web App (SPWA) moderne pour générer des mots de passe sécurisés avec calcul de force en temps réel et interface utilisateur intuitive.
+Une Single Page Web App (SPWA) moderne pour générer des mots de passe sécurisés avec un calcul de force en temps réel et interface utilisateur simple et intuitive.
 
 ## 📸 Aperçu
 
