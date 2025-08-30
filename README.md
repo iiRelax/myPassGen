@@ -147,7 +147,7 @@ const password = generator.generate(config);
 - `npm start` : Démarrage rapide sur tous les réseaux
 
 ### Personnalisation
-- Variables CSS dans `:root` pour les couleurs et espacements
+- Variables CSS dans `:root` pour les couleurs et les espacements
 - Presets configurables dans `PasswordGenerator.js`
 - Mots français modifiables pour les phrases mémo
 
