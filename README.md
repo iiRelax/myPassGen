@@ -18,68 +18,12 @@ Une Single Page Web App (SPWA) moderne pour générer des mots de passe sécuris
   - 🔢 **PIN** : 6 chiffres uniquement
   - 📝 **Phrase mémo** : Phrase française mémorable
 
-### 🎨 Interface Utilisateur
-- **Slider interactif** : Ajustement de longueur avec indicateur d'entropie
-- **Feedback visuel** : Barre de force colorée et dynamique
-- **Historique local** : Conservation des 3 dernières générations
-- **Animation de copie** : Confirmation visuelle de la copie réussie
-
-### 🛠️ Technologie
-- **Architecture ES Modules** : Code moderne et modulaire
-- **Accessibilité WCAG AA** : Support complet des lecteurs d'écran
-- **PWA Ready** : Service Worker inclus pour utilisation hors ligne
-- **Bundler Vite** : Build optimisé et développement rapide
-
 ## 🚀 Installation et Utilisation
 
 ### Méthode 1 : Utilisation directe (recommandée)
 ```bash
 # Ouvrir directement index.html dans un navigateur
 open index.html
-```
-
-### Méthode 2 : Avec serveur de développement
-```bash
-# Installation des dépendances
-npm install
-
-# Démarrage du serveur de développement
-npm run dev
-
-# Accès à http://localhost:3000
-```
-
-### Méthode 3 : Build de production
-```bash
-# Build optimisé
-npm run build
-
-# Prévisualisation
-npm run preview
-```
-
-## 📱 Installation PWA
-
-1. Ouvrez l'application dans un navigateur compatible
-2. Cliquez sur l'icône d'installation dans la barre d'adresse
-3. Confirmez l'installation
-4. L'application sera disponible hors ligne
-
-## 🔧 Architecture Technique
-
-### Structure des fichiers
-```
-myPassGen/
-├── index.html              # Interface principale
-├── styles.css              # Styles avec variables CSS
-├── js/
-│   ├── PasswordGenerator.js # Logique de génération
-│   └── app.js              # Interface et interactions
-├── manifest.json           # Configuration PWA
-├── sw.js                   # Service Worker
-├── package.json            # Dépendances Node.js
-├── vite.config.js          # Configuration Vite
-└── README.md               # Documentation
 ```
 
 ### Classe PasswordGenerator
@@ -114,20 +58,6 @@ const password = generator.generate(config);
 - **Validation d'entropie** : Calcul en temps réel de la force cryptographique
 - **Pas de stockage cloud** : Toutes les données restent locales
 
-## 🌍 Accessibilité
-
-- Support complet des lecteurs d'écran
-- Navigation au clavier (Ctrl+Entrée pour générer)
-- Contrastes respectant WCAG AA
-- Textes alternatifs et ARIA labels
-- Support du mode sombre automatique
-
-## 📊 Compatibilité
-
-- **Navigateurs modernes** : Chrome 87+, Firefox 78+, Safari 14+, Edge 88+
-- **Appareils mobiles** : iOS Safari, Chrome Android
-- **PWA** : Installation sur bureau et mobile
-- **Hors ligne** : Fonctionnement complet sans réseau
 
 ## 🎯 Utilisation
 
@@ -137,14 +67,6 @@ const password = generator.generate(config);
 4. **Générer** en cliquant le bouton ou Ctrl+Entrée
 5. **Copier** d'un clic dans le presse-papiers
 6. **Consulter l'historique** des 3 dernières générations
-
-## 🔧 Développement
-
-### Scripts disponibles
-- `npm run dev` : Serveur de développement avec rechargement automatique
-- `npm run build` : Build de production optimisé
-- `npm run preview` : Prévisualisation du build
-- `npm start` : Démarrage rapide sur tous les réseaux
 
 ### Personnalisation
 - Variables CSS dans `:root` pour les couleurs et espacements
